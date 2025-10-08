@@ -2,6 +2,9 @@
 #include <iostream>
 using namespace Leap;
 
+//compilation command
+//clear;g++ main.cpp -o test -I include -L lib/x64 -l Leap  
+
 int main() {
     std::string errorMessage = "";
     Controller controller;

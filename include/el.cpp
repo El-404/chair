@@ -1,6 +1,7 @@
 #include <unistd.h>
 
-
-void sleep(double seconds) {
-  usleep(seconds * 1000);
+namespace el {
+  void sleep(double seconds) {
+    usleep(seconds * 1000);
+  }
 }

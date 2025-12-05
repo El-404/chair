@@ -1,11 +1,14 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
-#define MAX_ANGLE  430 // This is the 'maximum' pulse length count (out of 4096)
-#define MIN_ANGLE  184 // This is the 'minimum' pulse length count (out of 4096)
+#define MAX_HORIZONTAL_ANGLE  550 // pulse lengths
+#define MIN_HORIZONTAL_ANGLE  160
+
+#define MAX_VERTICAL_ANGLE 420
+#define MIN_VERTICAL_ANGLE 270
 
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
-int pos = MIN_ANGLE;
+float pos = 0;
 bool direction = true;
 
 
@@ -15,17 +18,31 @@ void setup() {
   pwm.begin();
   pwm.setPWMFreq(50);  // Analog servos run at ~50 Hz updates
 
+  pinMode(13, OUTPUT);
+
   delay(10);
 }
 
 
 
 void loop() {
-  // pos = Serial.parseInt();
-  pwm.setPWM(8, 0, pos);
-  pos = direction ? pos + 1 : pos - 1;
-  direction ^= pos == MIN_ANGLE || pos == MAX_ANGLE;
-  delay(15);
+  if(Serial.available()){
+    digitalWrite(13, HIGH);  
+    delay(100);                      
+    digitalWrite(13, LOW);  
+    delay(100); 
+    pos = Serial.parseFloat();
+  }
+
+  pwm.setPWM(8, 0, pos * (MAX_VERTICAL_ANGLE - MIN_VERTICAL_ANGLE) + MIN_VERTICAL_ANGLE);
+  pwm.setPWM(0, 0, pos * (MAX_HORIZONTAL_ANGLE - MIN_HORIZONTAL_ANGLE) + MIN_HORIZONTAL_ANGLE);
+
+  // pos += direction ? 0.01 : -0.01;
+  // direction ^= pos <= 0 || pos >= 1;
+
+  delay(25);
+
+  Serial.println(pos);
 }
 
 

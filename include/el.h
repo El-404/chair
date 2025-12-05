@@ -1,3 +1,4 @@
 #include <unistd.h>
-
-void sleep(double seconds);
+namespace el {
+    void sleep(double seconds);
+}

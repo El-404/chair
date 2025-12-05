@@ -1,4 +1,4 @@
-//g++ serial.cpp $(find src -name "*.cc") -I include -L lib   
+// g++ servoTest/serial.cpp $(find src -name "*.cc") -I include -L lib 
 
 #include <string>
 #include <iostream>
@@ -8,16 +8,14 @@
 #include "el.cpp"
 
 #define BUAD 9600
-#define PORT "/dev/ttyUSB0"
+#define PORT "/dev/ttyACM0"
 
 int run(int argc, char **argv) {
   // port, baudrate, timeout in milliseconds
   serial::Serial my_serial(PORT, BUAD, serial::Timeout::simpleTimeout(500));
-  // std::cout << "A";
 
   my_serial.write(argv[1]);
-  // std::cout << "B";
-  sleep(2.0);
+  
   return 0;
 }
 

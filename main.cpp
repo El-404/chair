@@ -4,7 +4,7 @@
 using namespace Leap;
 
 //compilation command
-//clear;g++ main.cpp -o chair -I include -L lib/x64 -l Leap  
+//g++ main.cpp $(find src -name "*.cc") -o chair -I include -L lib/x64 -l Leap  
 //
 //may have to run:
 //export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH

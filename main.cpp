@@ -1,4 +1,5 @@
 #include "Leap.h"
+#include "el.h"
 #include <iostream>
 using namespace Leap;
 

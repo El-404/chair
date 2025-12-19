@@ -26,17 +26,20 @@ void setup() {
   delay(10);
 }
 
-
+int a = 0;
 
 void loop() {
   // flash an led on port 13 when data is recieved
   // also sets the pos element to whatever data was recieved
   // [In the future I will create a way to move all the servos at different times]  
   if(Serial.available()){
-    digitalWrite(13, HIGH);  
-    delay(100);                      
-    digitalWrite(13, LOW);  
-    delay(100); 
+    /*a = Serial.parseInt();
+    for(int i = 0; i < a; i++) {
+      digitalWrite(13, HIGH);  
+      delay(100);                      
+      digitalWrite(13, LOW);  
+      delay(500); 
+    }*/
     pos = Serial.parseFloat();
   }
 
@@ -53,6 +56,7 @@ void loop() {
   delay(25);
 
   //debugging
+  Serial.print("A");
   Serial.println(pos);
 }
 

@@ -9,6 +9,9 @@ using namespace Leap;
 //may have to run:
 //export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
 
+//https://github.com/hollanderski/EEG-StarWars?tab=readme-ov-file
+//link for the brainwave reader
+
 Hand getHand(Frame frame) {
     Hand best = frame.hand(0);
     for (int i = 0; i < frame.hands().count(); i++) {

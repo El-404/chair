@@ -66,30 +66,29 @@ int main() {
         return -1;
     }
 
-    std::cout << controller.isConnected() << std::endl;
-    controller.setPolicy(Controller::POLICY_BACKGROUND_FRAMES);
+    LEAP_CONNECTION_MESSAGE msg;
 
 
+    while(running) {
+        result = LeapPollConnection(connectionHandle, 0, &msg);
+        if(result != eLeapRS_Success || msg.tracking_event->nHands < 1) {
+            continue;
+        }
 
-    while (running) {
-        recentFrame = controller.frame(0);
-        hands = recentFrame.hands();
-        std::cout << "num of hands: " << hands.count() << std::endl;
+        float rot = (msg.tracking_event->pHands->palm.direction.x + 1) / 2; //bound between 0->1 (not -1->1)
+        bool closed = msg.tracking_event->pHands->grab_strength > 0.25;
+        float yaw = (msg.tracking_event->pHands->palm.direction.y + 1) / 2;
 
 
-        Hand hand = getHand(recentFrame);
-        double rotation = atan(hand.direction().z / hand.direction().x ) * 180 / M_PI;
-        rotation = rotation < 0 ? rotation + 180 : rotation;
+        std::cout << std::to_string(yaw) + ";" + std::to_string(rot) << std::endl;
 
-        bool closed = hand.grabStrength() > 0.25;
-        
+        if(std::abs(yaw - masterYaw) > 0.1 || std::abs(rot - masterRot) > 0.1) {
+            masterYaw = yaw;
+            masterRot = rot;
+            // el::serialWrite(&fd, output);
+            el::serialWrite(&fd, "y" + std::to_string(yaw));
+            el::serialWrite(&fd, "x" + std::to_string(rot));
+        }
 
-        printf("rot: %f --- closed: %d --- yaw: %f\n",
-            rotation,
-            closed,
-            hand.direction().y * 90
-        );
-    }
-
-    controller.removeListener(listener);
+    } // while(running)
 }

@@ -10,8 +10,10 @@
 #define MAX_VERTICAL_ANGLE 420
 #define MIN_VERTICAL_ANGLE 270
 
+
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
-float pos = 0;
+double posy = 0;
+double posx = 0;
 bool direction = true;
 
 
@@ -29,35 +31,34 @@ void setup() {
 int a = 0;
 
 void loop() {
-  // flash an led on port 13 when data is recieved
-  // also sets the pos element to whatever data was recieved
-  // [In the future I will create a way to move all the servos at different times]  
   if(Serial.available()){
-    /*a = Serial.parseInt();
-    for(int i = 0; i < a; i++) {
-      digitalWrite(13, HIGH);  
-      delay(100);                      
-      digitalWrite(13, LOW);  
-      delay(500); 
-    }*/
-    pos = Serial.parseFloat();
+    String temp = Serial.readString();
+    
+    if(temp.charAt(0) == 'x') {
+      posx = temp.substring(1).toFloat();
+    }
+
+    if(temp.charAt(0) == 'y') {
+      posy = temp.substring(1).toFloat();
+    }
+
+    Serial.print(posx); Serial.print("     "); Serial.print(posy);
   }
 
   //sets the (port, idk what 0 does, and the pulse length that it should go to)
   //pos * (max-min) + min -->> maps inputs on the interval [0,1] to the interval [min,max]
-  pwm.setPWM(8, 0, pos * (MAX_VERTICAL_ANGLE - MIN_VERTICAL_ANGLE) + MIN_VERTICAL_ANGLE);
-  pwm.setPWM(0, 0, pos * (MAX_HORIZONTAL_ANGLE - MIN_HORIZONTAL_ANGLE) + MIN_HORIZONTAL_ANGLE);
+  pwm.setPWM(8, 0, posy * (MAX_VERTICAL_ANGLE - MIN_VERTICAL_ANGLE) + MIN_VERTICAL_ANGLE);
+  pwm.setPWM(0, 0, posx * (MAX_HORIZONTAL_ANGLE - MIN_HORIZONTAL_ANGLE) + MIN_HORIZONTAL_ANGLE);
 
   //oscillates the servos between the min and max angles
   
   // pos += direction ? 0.01 : -0.01;
   // direction ^= pos <= 0 || pos >= 1;
 
-  delay(25);
+  //delay(25);
 
   //debugging
-  Serial.print("A");
-  Serial.println(pos);
+  // Serial.print(posx); Serial.print(" --- "); Serial.println(posy);
 }
 
 

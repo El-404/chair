@@ -6,10 +6,11 @@
 #include <string>
 #include <cmath>
 #include <unistd.h>
+#include <cstring>
 
 
 #define BUADRATE 9600
-#define PORT "/dev/ttyACM0"
+#define PORT "/dev/ttyACM1"
 
 LEAP_CONNECTION connectionHandle;
 LEAP_CONNECTION_MESSAGE msg;
@@ -85,9 +86,14 @@ int main() {
         if(std::abs(yaw - masterYaw) > 0.1 || std::abs(rot - masterRot) > 0.1) {
             masterYaw = yaw;
             masterRot = rot;
-            // el::serialWrite(&fd, output);
-            el::serialWrite(&fd, "y" + std::to_string(yaw));
-            el::serialWrite(&fd, "x" + std::to_string(rot));
+            
+            uint8_t data[] = {
+                static_cast<uint8_t>( std::max(std::min(yaw, 1.0f), 0.0f) * 254.0f ), 
+                static_cast<uint8_t>( std::max(std::min(rot, 1.0f), 0.0f) * 254.0f ), 
+                static_cast<uint8_t>( 255 )
+            };
+
+            el::serialWrite(&fd, data);
         }
 
     } // while(running)

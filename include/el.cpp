@@ -2,17 +2,18 @@
 #include <iostream>
 #include <termios.h>
 #include <fcntl.h>
+#include <stdint.h>
 
 #define BUADRATE 9600
-#define PORT "/dev/ttyACM0"
+#define PORT "/dev/ttyACM1"
 
 namespace el {
   void sleep(double seconds) {
     usleep(seconds * 1000 * 1000);
   }
 
-  int serialWrite(int *fd, std::string msg) {
-    if(write(*fd, &msg, sizeof(msg)) == -1) {
+  int serialWrite(int *fd, uint8_t data[]) {
+    if(write(*fd, data, sizeof(data)) == -1) {
       std::cerr << "Failed to write to serial";
       return -1;
     }

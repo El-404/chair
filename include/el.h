@@ -5,6 +5,6 @@
 
 namespace el {
     void sleep(double seconds);
-    int serialWrite(int *fd, uint8_t data[]);
+    int serialWrite(int *fd, const std::string& data);
     int serialStart(int *fd, termios *config);
 }

@@ -5,15 +5,15 @@
 #include <stdint.h>
 
 #define BUADRATE 9600
-#define PORT "/dev/ttyACM1"
+#define PORT "/dev/ttyACM0"
 
 namespace el {
   void sleep(double seconds) {
     usleep(seconds * 1000 * 1000);
   }
 
-  int serialWrite(int *fd, uint8_t data[]) {
-    if(write(*fd, data, sizeof(data)) == -1) {
+  int serialWrite(int *fd, const std::string& data) {
+    if(write(*fd, data.c_str(), data.length()) == -1) {
       std::cerr << "Failed to write to serial";
       return -1;
     }
@@ -24,7 +24,7 @@ namespace el {
     *fd = open(PORT, O_RDWR);
     if(*fd == -1) {
       std::cerr << "Failed to open file: " << PORT;
-      return -1;
+      // return -1;
     }
 
     if(!isatty(*fd)) { 

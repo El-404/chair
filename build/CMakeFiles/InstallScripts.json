@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/el/Documents/Programming/chair/build/cmake_install.cmake",
+		"/home/el/Documents/Programming/chair/build/SDL_mixer/cmake_install.cmake",
+		"/home/el/Documents/Programming/chair/build/SDL_image/cmake_install.cmake",
+		"/home/el/Documents/Programming/chair/build/SDL_ttf/cmake_install.cmake",
+		"/home/el/Documents/Programming/chair/build/SDL/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

@@ -1,0 +1,17 @@
+/home/el/Documents/Programming/chair/build/CMakeFiles/brainwaveTest.dir
+/home/el/Documents/Programming/chair/build/CMakeFiles/edit_cache.dir
+/home/el/Documents/Programming/chair/build/CMakeFiles/rebuild_cache.dir
+/home/el/Documents/Programming/chair/build/SDL_mixer/CMakeFiles/SDL3_mixer-shared.dir
+/home/el/Documents/Programming/chair/build/SDL_mixer/CMakeFiles/edit_cache.dir
+/home/el/Documents/Programming/chair/build/SDL_mixer/CMakeFiles/rebuild_cache.dir
+/home/el/Documents/Programming/chair/build/SDL_image/CMakeFiles/SDL3_image-shared.dir
+/home/el/Documents/Programming/chair/build/SDL_image/CMakeFiles/edit_cache.dir
+/home/el/Documents/Programming/chair/build/SDL_image/CMakeFiles/rebuild_cache.dir
+/home/el/Documents/Programming/chair/build/SDL_ttf/CMakeFiles/SDL3_ttf-shared.dir
+/home/el/Documents/Programming/chair/build/SDL_ttf/CMakeFiles/edit_cache.dir
+/home/el/Documents/Programming/chair/build/SDL_ttf/CMakeFiles/rebuild_cache.dir
+/home/el/Documents/Programming/chair/build/SDL/CMakeFiles/SDL3-shared.dir
+/home/el/Documents/Programming/chair/build/SDL/CMakeFiles/SDL3_test.dir
+/home/el/Documents/Programming/chair/build/SDL/CMakeFiles/SDL_uclibc.dir
+/home/el/Documents/Programming/chair/build/SDL/CMakeFiles/edit_cache.dir
+/home/el/Documents/Programming/chair/build/SDL/CMakeFiles/rebuild_cache.dir

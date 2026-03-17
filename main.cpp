@@ -10,7 +10,7 @@
 
 
 #define BUADRATE 9600
-#define PORT "/dev/ttyACM1"
+#define PORT "/dev/ttyACM0"
 
 LEAP_CONNECTION connectionHandle;
 LEAP_CONNECTION_MESSAGE msg;
@@ -24,7 +24,7 @@ bool running = true;
 
 
 //compilation command
-//g++ main.cpp $(find src -name "*.cc") -o chair -I include -L /usr/lib/ultraleap-hand-tracking-service/ -lLeapC 
+//g++ main.cpp $(find src -name "*.cc") $(find include -name "*.cpp") -o chair -I include -L /usr/lib/ultraleap-hand-tracking-service/ -lLeapC;./chair 
 //may have to run:
 //export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
 
@@ -50,9 +50,9 @@ LEAP_HAND getHand(LEAP_CONNECTION_MESSAGE message) {
 }
 
 int main() {
-    if(el::serialStart(&fd, &config) == -1) {
-        return -1;
-    }
+    // if(el::serialStart(&fd, &config) == -1) {
+        // return -1;
+    // }
 
 
     eLeapRS result = LeapCreateConnection(NULL, &connectionHandle);
@@ -81,19 +81,18 @@ int main() {
         float yaw = (msg.tracking_event->pHands->palm.direction.y + 1) / 2;
 
 
-        std::cout << std::to_string(yaw) + ";" + std::to_string(rot) << std::endl;
+        std::cout << std::to_string(std::abs(yaw)) + "y" + std::to_string(rot) + "x" << std::endl;
 
         if(std::abs(yaw - masterYaw) > 0.1 || std::abs(rot - masterRot) > 0.1) {
             masterYaw = yaw;
-            masterRot = rot;
+            masterRot = rot;    
             
-            uint8_t data[] = {
-                static_cast<uint8_t>( std::max(std::min(yaw, 1.0f), 0.0f) * 254.0f ), 
-                static_cast<uint8_t>( std::max(std::min(rot, 1.0f), 0.0f) * 254.0f ), 
-                static_cast<uint8_t>( 255 )
-            };
+            //uint8_t data[] = {
+            //    static_cast<uint8_t>( std::max(std::min(yaw, 1.0f), 0.0f) * 255.0f ), 
+            //    static_cast<uint8_t>( std::max(std::min(rot, 1.0f), 0.0f) * 255.0f ), 
+            //};
 
-            el::serialWrite(&fd, data);
+            // el::serialWrite(&fd, std::to_string(std::abs(yaw)) + "y" + std::to_string(rot) + "x");
         }
 
     } // while(running)

@@ -7,8 +7,8 @@
 #define MAX_HORIZONTAL_ANGLE  575
 #define MIN_HORIZONTAL_ANGLE  160
 
-#define MAX_VERTICAL_ANGLE 420
-#define MIN_VERTICAL_ANGLE 270
+#define MAX_VERTICAL_ANGLE 400 //420
+#define MIN_VERTICAL_ANGLE 300 //270
 
 
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
@@ -29,20 +29,25 @@ void setup() {
   delay(10);
 }
 
-byte data[3];
+String SerialData = "";
 
 void loop() {
-  if(Serial.available()){
-    Serial.readBytes(data, sizeof(data));
+  
+  while(Serial.available()){
+    char tmp = Serial.read();c
 
-    if(data[2] != 255) {
-      while(Serial.available() && Serial.read() != -1) {} 
-      // if there is more data, read until we reach the starting point of the new data 
-      return;
+    if(tmp == 'y') {
+      posy = SerialData.toFloat();
+      Serial.println(SerialData);
+      SerialData = "";
+    } else if(tmp == 'x') {
+      posx = SerialData.toFloat();
+      SerialData = "";
+    } else {
+      SerialData += tmp;
     }
-    posy = data[0] / 254;
-    posx = data[1] / 254;
   }
+
 
   //sets the (port, idk what 0 does, and the pulse length that it should go to)
   //pos * (max-min) + min -->> maps inputs on the interval [0,1] to the interval [min,max]
@@ -54,7 +59,7 @@ void loop() {
   // pos += direction ? 0.01 : -0.01;
   // direction ^= pos <= 0 || pos >= 1;
 
-  //delay(25);
+  delay(15);
 
   //debugging
   // Serial.print(posx); Serial.print(" --- "); Serial.println(posy);

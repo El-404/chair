@@ -1,0 +1,9 @@
+SDL/CMakeFiles/SDL3-shared.dir/src/joystick/hidapi/SDL_hidapi_zuiki.c.o: \
+ /home/el/Documents/Programming/chair/SDL/src/joystick/hidapi/SDL_hidapi_zuiki.c \
+ /usr/include/stdc-predef.h \
+ /home/el/Documents/Programming/chair/SDL/src/SDL_internal.h \
+ /home/el/Documents/Programming/chair/SDL/src/joystick/hidapi/../SDL_sysjoystick.h \
+ /home/el/Documents/Programming/chair/SDL/src/joystick/hidapi/../SDL_joystick_c.h \
+ /home/el/Documents/Programming/chair/SDL/src/joystick/hidapi/SDL_hidapijoystick_c.h \
+ /home/el/Documents/Programming/chair/SDL/src/joystick/hidapi/../usb_ids.h \
+ /home/el/Documents/Programming/chair/SDL/src/joystick/hidapi/SDL_hidapi_rumble.h
